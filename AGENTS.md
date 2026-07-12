@@ -15,6 +15,11 @@
 - 修复 `was name=cmd -flag` 时 `-flag` 被误判为未知选项的 bug
 - **变更详情**：[Taolun → 2026-07-11 重构](#2026-07-11--重构独立-unwas-二进制) | [项目进度](#已完成-1)
 
+## [2026.07.12] — v0.1.2
+- **CI/CD**：添加 GitHub Actions（build + release），仿照 `woman` 项目重构
+- 发布时自动构建 `was.exe` + `unwas.exe` 并上传到 GitHub Release
+- **变更详情**：[Taolun → 2026-07-12 发布](#2026-07-12--发布) | [项目进度](#已完成-1)
+
 
 # Taolun
 
@@ -69,6 +74,22 @@
 - [Changelog → 2026.07.11](#20260711--v010) | [项目进度 → 已完成](#已完成)
 
 
+## 2026-07-12 — 发布
+### 讨论摘要
+- 仿照 `woman` 项目添加 GitHub Actions CI/CD（build + release）
+- build.yml：push/PR 到 main 时构建 release 并上传 artifacts
+- release.yml：打 tag 时自动构建、重命名二进制、创建 GitHub Release
+- 发布 `v0.1.2`，tag 格式：`YYYY.MM.DD.xxxx`
+
+### 涉及文件
+- `.github/workflows/build.yml` — 新建，CI 构建
+- `.github/workflows/release.yml` — 新建，自动发布
+- `AGENTS.md` — 更新 Changelog 和项目进度
+
+### 相关变更
+- [Changelog → 2026.07.12](#20260712--v012) | [项目进度 → 已完成](#已完成-1)
+
+
 # Agents
 
 ## 规范
@@ -96,6 +117,7 @@
 - [x] `was name= -flag` 正确将 `-flag` 视为命令值
 - [x] 编译发布到 `C:\Program Files\coreutils\bin\` — [Taolun → 2026-07-11 实现](#2026-07-11--实现) | [Changelog → 2026.07.11](#20260711--v010)
 - [x] **v0.1.1 重构**：was/unwas 分离为独立二进制，提取 lib.rs — [Taolun → 2026-07-11 重构](#2026-07-11--重构独立-unwas-二进制) | [Changelog → 2026.07.11](#20260711--v011)
+- [x] **v0.1.2 发布**：添加 GitHub Actions CI/CD，自动构建发布 — [Taolun → 2026-07-12 发布](#2026-07-12--发布) | [Changelog → 2026.07.12](#20260712--v012)
 
 ## 开发流程
 1. **先记录后编码**：每次改动前，先在 `Taolun` 章节保存讨论记录，再开始修改文件。

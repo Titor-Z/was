@@ -1,6 +1,6 @@
 [package]
 name = "was"
-version = "0.1.0"
+version = "0.1.2"
 edition = "2021"
 description = "Windows Alias System — 像 Linux alias 一样管理 PowerShell 别名"
 
