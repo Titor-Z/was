@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags: ["*"]
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          cache: true
+
+      - run: cargo build --release
+
+      - name: Rename binaries with version
+        shell: pwsh
+        run: |
+          $ver = "${{ github.ref_name }}"
+          Move-Item -Path target/release/was.exe -Destination "was-$ver-x64-windows.exe"
+          Move-Item -Path target/release/unwas.exe -Destination "unwas-$ver-x64-windows.exe"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: was-${{ github.ref_name }}-x64-windows.exe
+          path: was-${{ github.ref_name }}-x64-windows.exe
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unwas-${{ github.ref_name }}-x64-windows.exe
+          path: unwas-${{ github.ref_name }}-x64-windows.exe
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            was-*/was-*
+            unwas-*/unwas-*
