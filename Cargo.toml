@@ -1,0 +1,16 @@
+[package]
+name = "was"
+version = "0.1.0"
+edition = "2021"
+description = "Windows Alias System — 像 Linux alias 一样管理 PowerShell 别名"
+
+[[bin]]
+name = "was"
+path = "src/main.rs"
+
+[[bin]]
+name = "unwas"
+path = "src/bin/unwas.rs"
+
+[dependencies]
+dirs = "5"
